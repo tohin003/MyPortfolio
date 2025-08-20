@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import profileImage from "@assets/profile-image.png";
+import profileImage from "@assets/profile-image.jpeg";
 
 export default function HeroSection() {
   const [typedText, setTypedText] = useState("");
