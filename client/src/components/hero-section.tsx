@@ -45,11 +45,14 @@ export default function HeroSection() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <img 
-            src={profileImage} 
-            alt="Tohin Majumder" 
-            className="w-32 h-32 rounded-full mx-auto mb-6 floating-animation border-4 border-primary/50 object-cover"
-          />
+          <div className="relative w-40 h-40 mx-auto mb-8 floating-animation">
+            <img 
+              src={profileImage} 
+              alt="Tohin Majumder" 
+              className="w-full h-full rounded-full object-cover border-4 border-primary/50 shadow-2xl shadow-primary/20"
+            />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/20 to-purple-600/20"></div>
+          </div>
         </motion.div>
 
         <motion.h1 
