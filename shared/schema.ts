@@ -1,52 +1,41 @@
-import { z } from "zod";
+import { sql } from "drizzle-orm";
+import { pgTable, text, varchar, timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
 
-// Contact form schema
-export const contactSchema = z.object({
-  id: z.string().default(() => crypto.randomUUID()),
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  subject: z.string().min(5, "Subject must be at least 5 characters"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-  createdAt: z.date().default(() => new Date()),
+export const users = pgTable("users", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  username: text("username").notNull().unique(),
+  password: text("password").notNull(),
 });
 
-export const insertContactSchema = contactSchema.omit({ id: true, createdAt: true });
+export const contacts = pgTable("contacts", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  subject: text("subject").notNull(),
+  message: text("message").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
 
-export type Contact = z.infer<typeof contactSchema>;
+export const insertUserSchema = createInsertSchema(users).pick({
+  username: true,
+  password: true,
+});
+
+export const insertContactSchema = createInsertSchema(contacts).pick({
+  name: true,
+  email: true,
+  subject: true,
+  message: true,
+}).extend({
+  email: z.string().email("Please enter a valid email address"),
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  subject: z.string().min(5, "Subject must be at least 5 characters"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+export type InsertUser = z.infer<typeof insertUserSchema>;
+export type User = typeof users.$inferSelect;
 export type InsertContact = z.infer<typeof insertContactSchema>;
-
-// Project data types
-export interface Project {
-  id: string;
-  title: string;
-  description: string;
-  technologies: string[];
-  achievements: string[];
-  type: 'web' | 'ml' | 'ai';
-  featured: boolean;
-}
-
-// Experience data types
-export interface Experience {
-  id: string;
-  title: string;
-  company: string;
-  location: string;
-  duration: string;
-  type: 'remote' | 'onsite';
-  achievements: string[];
-  technologies: string[];
-}
-
-// Skill category types
-export interface SkillCategory {
-  name: string;
-  skills: Skill[];
-}
-
-export interface Skill {
-  name: string;
-  level: number; // 1-5
-  icon?: string;
-}
+export type Contact = typeof contacts.$inferSelect;
