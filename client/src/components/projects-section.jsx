@@ -99,49 +99,49 @@ export default function ProjectsSection() {
               <div className="mb-4 overflow-hidden rounded-lg">
                 <img 
                   src={project.image} 
-                  alt={project.title} 
-                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300" 
+                  alt={project.title}
+                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
               </div>
               
-              <h3 className={`text-xl font-semibold mb-3 ${colorVariants[project.color as keyof typeof colorVariants].split(' ')[0]}`}>
-                {project.title}
-              </h3>
-              
-              <p className="text-muted-foreground mb-4">
-                {project.description}
-              </p>
+              <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+              <p className="text-muted-foreground mb-4">{project.description}</p>
               
               <div className="flex flex-wrap gap-2 mb-4">
                 {project.technologies.map((tech) => (
                   <span 
-                    key={tech} 
-                    className={`px-3 py-1 rounded-full text-sm ${colorVariants[project.color as keyof typeof colorVariants]}`}
+                    key={tech}
+                    className={`px-3 py-1 rounded-full text-sm font-medium ${colorVariants[project.color]}`}
                   >
                     {tech}
                   </span>
                 ))}
               </div>
               
-              <ul className="text-muted-foreground text-sm space-y-1 mb-4">
+              <ul className="mb-6 space-y-1">
                 {project.highlights.map((highlight, idx) => (
-                  <li key={idx}>• {highlight}</li>
+                  <li key={idx} className="flex items-center text-sm text-muted-foreground">
+                    <span className="w-2 h-2 bg-primary rounded-full mr-2"></span>
+                    {highlight}
+                  </li>
                 ))}
               </ul>
               
               <div className="flex gap-3">
-                <a 
-                  href={project.github} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className={`${colorVariants[project.color as keyof typeof colorVariants].split(' ')[0]} hover:opacity-80 transition-opacity flex items-center gap-2`}
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-2 bg-muted hover:bg-muted/80 rounded-lg transition-colors"
                 >
                   <Github size={16} />
                   Code
                 </a>
-                <a 
-                  href={project.demo} 
-                  className={`${colorVariants[project.color as keyof typeof colorVariants].split(' ')[0]} hover:opacity-80 transition-opacity flex items-center gap-2`}
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg transition-colors"
                 >
                   <ExternalLink size={16} />
                   Demo
@@ -150,40 +150,7 @@ export default function ProjectsSection() {
             </motion.div>
           ))}
         </div>
-
-        {/* GitHub Stats */}
-        <motion.div 
-          className="mt-16 text-center"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          <h3 className="text-2xl font-semibold mb-8">GitHub Activity</h3>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="glass p-6 rounded-xl">
-              <div className="text-3xl font-bold text-primary mb-2">25+</div>
-              <div className="text-muted-foreground">Repositories</div>
-            </div>
-            <div className="glass p-6 rounded-xl">
-              <div className="text-3xl font-bold text-green-400 mb-2">150+</div>
-              <div className="text-muted-foreground">Commits</div>
-            </div>
-            <div className="glass p-6 rounded-xl">
-              <div className="text-3xl font-bold text-purple-400 mb-2">8+</div>
-              <div className="text-muted-foreground">Languages</div>
-            </div>
-          </div>
-          <a 
-            href="https://github.com/tohin003" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="inline-block mt-6 px-6 py-3 bg-gradient-to-r from-primary to-purple-600 rounded-full text-primary-foreground font-semibold hover:scale-105 transition-transform duration-300"
-          >
-            View Full GitHub Profile
-          </a>
-        </motion.div>
       </div>
     </section>
   );
-}
+} 

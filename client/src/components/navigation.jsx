@@ -36,7 +36,7 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (href) => {
     const targetId = href.substring(1);
     const targetElement = document.getElementById(targetId);
     if (targetElement) {
@@ -100,4 +100,4 @@ export default function Navigation() {
       )}
     </>
   );
-}
+} 

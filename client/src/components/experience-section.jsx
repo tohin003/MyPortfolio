@@ -98,12 +98,8 @@ export default function ExperienceSection() {
                     <div className="flex flex-wrap gap-2">
                       {experience.technologies.map((tech) => (
                         <span 
-                          key={tech} 
-                          className={`px-3 py-1 rounded-full text-sm ${
-                            index === 0 
-                              ? 'bg-blue-500/20 text-blue-300' 
-                              : 'bg-green-500/20 text-green-300'
-                          }`}
+                          key={tech}
+                          className="px-3 py-1 bg-muted rounded-full text-sm font-medium text-muted-foreground"
                         >
                           {tech}
                         </span>
@@ -118,4 +114,4 @@ export default function ExperienceSection() {
       </div>
     </section>
   );
-}
+} 
